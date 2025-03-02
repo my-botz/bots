@@ -1,116 +1,346 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>joker bots</title>
+    <title>The Joker Bots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --text-color: #333;
+            --bg-color: #fff;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #64b5f6;
+            --secondary-color: #455a64;
+            --text-color: #fff;
+            --bg-color: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-image: url('https://envs.sh/idI.jpg'); /* רקע עם תמונה */
-            background-size: cover; /* מכסה את כל הרקע */
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
         }
-        .gif-header {
-            position: relative;
-            height: 100px; /* גובה הגיף */
-            overflow: hidden;
-        }
-        .gif-header img {
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
-        .circle {
-            display: inline-block;
-            width: 90px; /* קוטר העיגול */
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-btn, .theme-toggle {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .welcome-section {
+            margin-top: 70px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .welcome-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--bg-color);
+            padding: 1rem;
+            transition: 0.3s;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .bot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .bot-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+        }
+
+        .bot-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bot-image {
+            width: 90px;
             height: 90px;
             border-radius: 50%;
-            background-color: #555; /* צבע עיגול */
-            margin: 10px;
-            cursor: pointer;
+            margin: 0 auto 1rem;
         }
-        .circle img {
-            width: 100%; /* התמונה תתמלא את העיגול */
-            border-radius: 50%;
-            display: block; /* שינוי ל-block כדי למנוע עלייה של התמונה על הטקסט */
-            margin: 0 auto; /* מרכז את התמונה */
-        }
-        .circle-title {
-    margin-top: 1px; /* רווח בין העיגול לכותרת */
-    font-size: 13px; /* הקטנת גודל הטקסט */
-    line-height: 1.4; /* הגדלת המרווח בין השורות */
-}
-        .circle-container {
+
+        .bottom-buttons {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* מאפשר עיגולים בשורות */
-            margin-top: 20px; /* הוסף רווח מעל האיגולים */
+            gap: 1rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .action-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* תפריט צד */
+        .sidebar-menu {
+            margin-top: 60px;
+        }
+
+        .sidebar-menu h2 {
+            margin-bottom: 1rem;
+        }
+
+        .bot-list {
+            list-style: none;
+        }
+
+        .bot-list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .bot-list-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bot-list-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="gif-header">
-    <img src="https://boss148.com/mywebsite/logo.jpg" alt="My Server" style="width: 100%; height: auto;"> <!-- הכנס את הנתיב לתמונה -->
-</div>
+    <div class="animated-bg"></div>
     
+    <header class="header">
+        <button class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
 
-    <h1></h1> <!-- הכותרת של האתר -->
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <h2>בוטים</h2>
+            <div class="bot-list">
+                <!-- רשימת הבוטים תיווצר דינמית ע"י JavaScript -->
+            </div>
+        </div>
+    </div>
 
-    <div class="circle-container">
-        <div class="circle" onclick="window.location.href='https://t.me/clear_links1_bot'">
-            <img src="https://envs.sh/iez.jpg" alt="Telegram">
-            <p class="circle-title">מוחק קישורים</p> <!-- כותרת מתחת לאייקון -->
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/Boss_list_order_bot'">
-            <img src="https://envs.sh/ieU.jpg" alt="Icon 1">
-            <p class="circle-title">מסדר רשימות</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/delete_tag_transferred_bot'">
-            <img src="https://envs.sh/ie7.jpg" alt="Icon 2">
-            <p class="circle-title">מסיר תג הועבר</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/button_on_the_channel_Bot'">
-            <img src="https://envs.sh/iiY.jpg" alt="Icon 3">
-            <p class="circle-title">כפתור אוטומטי בערוץ</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/The_Anonimos_bot'">
-            <img src="https://envs.sh/iiv.jpg" alt="Icon 4">
-            <p class="circle-title">אנונימבוט</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/search_torrents_RoBot'">
-            <img src="https://envs.sh/iia.jpg" alt="Icon 5">
-            <p class="circle-title">חיפוש טורנטים</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/Registration_Billing_Bot'">
-            <img src="https://envs.sh/ibh.jpg" alt="Icon 5">
-            <p class="circle-title">חיוב הרשמה לערוץ</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/Music_Yt_RoBot'">
-            <img src="https://envs.sh/ibD.jpg" alt="Icon 5">
-            <p class="circle-title">מוריד שירים מיוטיוב</p>
-        </div>
-         <div class="circle" onclick="window.location.href='https://t.me/My_Forward_Messages_RoBot'">
-            <img src="https://envs.sh/ib2.jpg" alt="Icon 5">
-            <p class="circle-title">מעביר הודעות</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/filter_sratim5_bot'">
-            <img src="https://envs.sh/ibF.jpg" alt="Icon 5">
-            <p class="circle-title">Search Movies</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/Time_Group_RoBot'">
-            <img src="https://envs.sh/ibA.jpg" alt="Icon 5">
-            <p class="circle-title">סוגר קבוצות</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/X_and_O_RoBot'">
-            <img src="https://envs.sh/ibc.jpg" alt="Icon 5">
-            <p class="circle-title">איקס עיגול</p>
-        </div>
-        <div class="circle" onclick="window.location.href='https://t.me/get_any_messages_bot'">
-            <img src="https://envs.sh/ibe.jpg" alt="Icon 5">
-            <p class="circle-title">Get Any Messages</p>
-        </div>
-        
+    <main>
+        <section class="welcome-section">
+            <h1 class="welcome-text">ברוכים הבאים לאתר של הבוטים של The Joker Bots</h1>
+        </section>
 
+        <div class="bot-grid">
+            <!-- הבוטים יתווספו כאן דינמית -->
+        </div>
+
+        <div class="bottom-buttons">
+            <a href="https://t.me/bot_sratim_sdarot" class="action-button">
+                <i class="fas fa-tv"></i> ערוץ סרטים וסדרות
+            </a>
+            <a href="https://t.me/+qn1oVKhkA3RlZmQ0" class="action-button">
+                <i class="fas fa-users"></i> קבוצת תמיכה
+            </a>
+            <a href="https://t.me/the_joker121_bot" class="action-button">
+                <i class="fas fa-code"></i> פניה למתכנת
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // נתוני הבוטים
+        const bots = [
+            {
+                name: "מוחק קישורים",
+                image: "https://envs.sh/iez.jpg",
+                link: "https://t.me/clear_links1_bot"
+            },
+            {
+                name: "מסדר רשימות",
+                image: "https://envs.sh/ieU.jpg",
+                link: "https://t.me/Boss_list_order_bot"
+            },
+            {
+                name: "מסיר תג הועבר",
+                image: "https://envs.sh/ie7.jpg",
+                link: "https://t.me/delete_tag_transferred_bot"
+            },
+            {
+                name: "כפתור אוטומטי בערוץ",
+                image: "https://envs.sh/iiY.jpg",
+                link: "https://t.me/button_on_the_channel_Bot"
+            },
+            {
+                name: "אנונימבוט",
+                image: "https://envs.sh/iiv.jpg",
+                link: "https://t.me/The_Anonimos_bot"
+            },
+            {
+                name: "חיפוש טורנטים",
+                image: "https://envs.sh/iia.jpg",
+                link: "https://t.me/search_torrents_RoBot"
+            },
+            {
+                name: "חיוב הרשמה לערוץ",
+                image: "https://envs.sh/ibh.jpg",
+                link: "https://t.me/Registration_Billing_Bot"
+            },
+            {
+                name: "מוריד שירים מיוטיוב",
+                image: "https://envs.sh/ibD.jpg",
+                link: "https://t.me/Music_Yt_RoBot"
+            },
+            {
+                name: "מעביר הודעות",
+                image: "https://envs.sh/ib2.jpg",
+                link: "https://t.me/My_Forward_Messages_RoBot"
+            },
+            {
+                name: "Search Movies",
+                image: "https://envs.sh/ibF.jpg",
+                link: "https://t.me/filter_sratim5_bot"
+            },
+            {
+                name: "סוגר קבוצות",
+                image: "https://envs.sh/ibA.jpg",
+                link: "https://t.me/Time_Group_RoBot"
+            },
+            {
+                name: "איקס עיגול",
+                image: "https://envs.sh/ibc.jpg",
+                link: "https://t.me/X_and_O_RoBot"
+            },
+            {
+                name: "Get Any Messages",
+                image: "https://envs.sh/ibe.jpg",
+                link: "https://t.me/get_any_messages_bot"
+            }
+        ];
+
+        // יצירת כרטיסי הבוטים
+        const botGrid = document.querySelector('.bot-grid');
+        const botList = document.querySelector('.bot-list');
+
+        bots.forEach(bot => {
+            // יצירת כרטיס בוט
+            const botCard = document.createElement('div');
+            botCard.className = 'bot-card';
+            botCard.innerHTML = `
+                <img src="${bot.image}" alt="${bot.name}" class="bot-image">
+                <h3>${bot.name}</h3>
+                <a href="${bot.link}" class="action-button">פתח בוט</a>
+            `;
+            botGrid.appendChild(botCard);
+
+            // יצירת פריט בתפריט
+            const listItem = document.createElement('div');
+            listItem.className = 'bot-list-item';
+            listItem.innerHTML = `
+                <img src="${bot.image}" alt="${bot.name}">
+                <span>${bot.name}</span>
+            `;
+            listItem.onclick = () => window.location.href = bot.link;
+            botList.appendChild(listItem);
+        });
+
+        // תפריט צד
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.querySelector('.sidebar');
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // מצב כהה/בהיר
+        const themeToggle = document.querySelector('.theme-toggle');
+        let isDark = false;
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    </script>
 </body>
 </html>
