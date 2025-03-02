@@ -32,9 +32,6 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: all 0.3s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .animated-bg {
@@ -68,13 +65,53 @@
             z-index: 1000;
         }
 
-        .theme-toggle {
+        .menu-btn, .theme-toggle {
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-color);
             background: none;
             border: none;
             padding: 0.5rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--bg-color);
+            padding: 1rem;
+            transition: 0.3s;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-title {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--text-color);
         }
 
         .welcome-section {
@@ -85,115 +122,104 @@
 
         .welcome-text {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             color: var(--text-color);
         }
 
-        .site-description {
-            color: var(--text-color);
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
+        .bot-list {
+            list-style: none;
         }
 
-        .bot-grid {
+        .bot-list-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            padding: 2rem;
-            justify-content: center;
-        }
-
-        .bot-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            width: 300px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            backdrop-filter: blur(5px);
-        }
-
-        .bot-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .bot-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .bot-card h3 {
-            text-align: center;
+            align-items: center;
+            padding: 1rem;
             margin-bottom: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bot-list-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bot-list-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 1rem;
+        }
+
+        .bot-info {
+            display: none;
+            padding: 2rem;
+            margin-top: 70px;
+        }
+
+        .bot-info.active {
+            display: block;
         }
 
         .bot-details {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 2rem;
-            margin: 1rem 0;
-            width: 100%;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
         }
 
         .bottom-buttons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
+            gap: 0.5rem;
+            padding: 1rem;
+            flex-wrap: wrap;
             margin-top: auto;
-            backdrop-filter: blur(5px);
         }
 
         .action-button {
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             background: var(--primary-color);
             color: white;
             text-decoration: none;
             transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .action-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) {
-            .bot-grid {
-                padding: 1rem;
-            }
-            
-            .bot-card {
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
     <div class="animated-bg"></div>
+    <div class="overlay"></div>
     
     <header class="header">
+        <button class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
         <button class="theme-toggle">
             <i class="fas fa-moon"></i>
         </button>
     </header>
 
+    <div class="sidebar">
+        <h2 class="sidebar-title">תפריט בוטים</h2>
+        <div class="bot-list">
+            <!-- רשימת הבוטים תיווצר דינמית ע"י JavaScript -->
+        </div>
+    </div>
+
     <main>
         <section class="welcome-section">
             <h1 class="welcome-text">The Joker Bots</h1>
-            <p class="site-description">פלטפורמה חכמה לבוטים איכותיים לשיפור חווית הטלגרם שלך</p>
         </section>
 
-        <div class="bot-grid">
-            <!-- רשימת הבוטים תיווצר דינמית -->
+        <div class="bot-info">
+            <!-- מידע על הבוט יוצג כאן -->
         </div>
 
         <div class="bottom-buttons">
@@ -210,47 +236,134 @@
     </main>
 
     <script>
-        const bots = [ /* רשימת הבוטים המקורית שלך נשארת זהה */ ];
+        // כאן אתה יכול להוסיף את ההסברים שלך לכל בוט
+        const bots = [
+            {
+                name: "מוחק קישורים",
+                image: "https://envs.sh/iez.jpg",
+                link: "https://t.me/clear_links1_bot",
+                description: "<strong>מה הבוט עושה?</strong><br>- מוחק קישורים שמשתמשים שולחים בקבוצה.<br>- נותן אזהרות למשתמשים על הקישורים, ואז אחרי 3 אזהרות מרחיק את המשתמש ששלח.<br>מתעלם מהודעות של מנהלים רגילים, ומנהלים אנונימיים."
+            },
+            {
+                name: "מסדר רשימות",
+                image: "https://envs.sh/ieU.jpg",
+                link: "https://t.me/Boss_list_order_bot",
+                description: "<strong>מה הבוט עושה:</strong><br>מסדר רשימה לפי סדר האותיות<br><br><strong>איך משתמשים:</strong><br>שולחים לבוט את הרשימה שרוצים (כל פריט מהרשימה בשורה נפרדת) והבוט שולח הודעה של בחירה איך לסדר את הרשימה...<br><br><strong>רגיל:</strong> הבוט שולח את הרשימה מסודרת לפי הסדר בלי שום תוספת בהתחלה...<br><strong>נקודה:</strong> הבוט יוסיף • לפני כל פריט ברשימה...<br><strong>כוכבית:</strong> הבוט מוסיף * לפני כל פריט...<br><strong>קו:</strong> הבוט יוסיף - לפני כל פריט ברשימה...<br><strong>מספרים:</strong> הבוט יוסיף מספרים לפי הסדר לפני כל פריט..."
+            },
+            {
+                name: "מסיר תג הועבר",
+                image: "https://envs.sh/ie7.jpg",
+                link: "https://t.me/delete_tag_transferred_bot",
+                description: "<strong>מה הבוט עושה?</strong><br>מסיר את הקישורים מהcaption של הוידאו או הקובץ."
+            },
+            {
+                name: "כפתור אוטומטי בערוץ",
+                image: "https://envs.sh/iiY.jpg",
+                link: "https://t.me/button_on_the_channel_Bot",
+                description: "<strong>מה הבוט עושה?</strong><br>מוסיף כפתורי קישור אוטומטית לכל הודעה שנשלחת בערוץ.<br><br><strong>איך מוסיפים כפתור?</strong><br>באמצעות הפקודה /add ואז לרדת שורה לכתוב את השם של הכפתור קישור ושורה מתחת את הקישור.<br>לדוגמא:<br><code>/add<br>לעוד בוטים<br>https://t.me/bot_sratim_sdarot</code><br><br><strong>איך מוחקים כפתור?</strong><br>עם הפקודה /delete.<br><br><strong>איך צופים בכפתורים שיש בערוץ?</strong><br>עם הפקודה /list."
+            },
+            {
+                name: "אנונימבוט",
+                image: "https://envs.sh/iiv.jpg",
+                link: "https://t.me/The_Anonimos_bot",
+                description: "<strong>מה הבוט עושה?</strong><br>נותן לך לדבר עם משתמשים רנדומלים שנמצאים בבוט, באנונימיות מוחלטת.<br><br><strong>איך משתמשים בבוט?</strong><br>פשוט כנסו לבוט ושלחו את הפקודה /chat ואז תחכו שעוד משתמש יכנס לצ'אט, ופשוט תתחילו לדבר איתו...<br>ואז בשביל לצאת מהשיחה שלחו את הפקודה /exit."
+            },
+            {
+                name: "חיפוש טורנטים",
+                image: "https://envs.sh/iia.jpg",
+                link: "https://t.me/search_torrents_RoBot",
+                description: "<strong>מה הבוט עושה?</strong><br>מחפש קישורי מגנט לסרטים ב-YTS.<br><br><strong>איך משתמשים בבוט?</strong><br>פשוט שולחים לבוט את השם של הסרט שרוצים באנגלית והבוט שולח תוצאות. (מומלץ לכתוב גם שנת יציאה)."
+            },
+            {
+                name: "חיוב הרשמה לערוץ",
+                image: "https://envs.sh/ibh.jpg",
+                link: "https://t.me/Registration_Billing_Bot",
+                description: "<strong>מה הבוט עושה?</strong><br>מחייב משתמשים להצטרף לערוץ שהמנהל של הקבוצה מגדיר.<br>כל משתמש ששולח הודעה בקבוצה הבוט בודק אם הוא רשום לערוץ שהמנהל הגדיר, ואז אם הוא רשום הבוט מתעלם, ואם הוא לא רשום הבוט מגביל אותו משליחת הודעות ואז כותב לו שבשביל לשלוח הודעות הוא חייב להירשם עם כפתורים כפתור ראשון עם קישור לערוץ, וכפתור שני שמאשר שנרשמתם...<br><br><strong>איך מגדירים ערוץ?</strong><br>- מוסיפים את הבוט לקבוצה שלכם ושמים לו ניהול.<br>- מוסיפים את הבוט גם לערוץ שלשם הוא מחייב עם הרשאה של הזמנת משתמשים באמצעות קישור.<br>- שולחים בקבוצה את הפקודה /channel ואז את המזהה של הקבוצה<br>לדוגמא: /channel -10012345678<br>וזהו, הבוט יחייב לשם כל משתמש ששולח הודעה בקבוצה שלכם"
+            },
+            {
+                name: "מוריד שירים מיוטיוב",
+                image: "https://envs.sh/ibD.jpg",
+                link: "https://t.me/Music_Yt_RoBot",
+                description: "<strong>מה הבוט עושה?</strong><br>מחפש שירים מיוטיוב ומוריד אותם בתור mp3.<br><br><strong>איך משתמשים?</strong><br>פשוט שלחו לבוט שם של שיר או זמר שאתם רוצים,<br>הבוט יתן לכם 50 תוצאות,<br>ואז תלחצו על התוצאה שאתם רוצים והבוט יוריד לכם את השיר."
+            },
+            {
+                name: "מעביר הודעות",
+                image: "https://envs.sh/ib2.jpg",
+                link: "https://t.me/My_Forward_Messages_RoBot",
+                description: "<strong>מה הבוט עושה?</strong><br>מעביר את כל ההודעות שיש בערוץ, לערוץ אחר.<br><br><strong>איך משתמשים?</strong><br>◄ הוסף בוט או משתמשבוט<br>◄ הוסף לפחות אחד לערוץ (הבוט/המשתמשבוט שלך חייב להיות מנהל שם)<br>◄ אתה יכול להוסיף צ'אטים או בוטים באמצעות /settings<br>◄ אם ערוץ מאת הוא פרטי המשתמש הבוט שלך חייב להיות חבר שם או שהבוט שלך חייב להזדקק להרשאת מנהל גם שם<br>◄ לאחר מכן השתמש /forward כדי להעביר הודעות"
+            },
+            {
+                name: "Search Movies",
+                image: "https://envs.sh/ibF.jpg",
+                link: "https://t.me/filter_sratim5_bot",
+                description: "<strong>מה הבוט עושה?</strong><br>מחפש סרטים ונותן תוצאות לבחירה, ואז כשבוחרים תוצאה הבוט שולח את הקובץ של הסרט או הסדרה.<br><br><strong>איך משתמשים?</strong><br>פשוט כתבו את השם של הסרט/סדרה לבוט בפרטי.<br>שימו לב שאתם כותבים רק את השם של הסרט בלי עוד כלום מסביב..."
+            },
+            {
+                name: "סוגר קבוצות",
+                image: "https://envs.sh/ibA.jpg",
+                link: "https://t.me/Time_Group_RoBot",
+                description: "<strong>מה הבוט עושה?</strong><br>סוגר את הקבוצה לזמן שמוגדר בימים שנבחרים.<br><br><strong>איך משתמשים?</strong><br><strong>סגירה ופתיחה מיידית:</strong><br>פקודת ה /close לסגירה, ו /open לפתיחה.<br><br><strong>סגירה לזמן מוגדר:</strong><br>ניתן לסגור לזמן מסויים, לדוג':<br>יסגור לדקה - /close 1m.<br>אפשר גם לשעות/ימים.<br><br><strong>סגירה קבועה לפי שעות:</strong><br>פקןדת /time + [טווח השעות] לסגירה בשעות קבועות. (לדוגמא: /time 00:00 - 10:00 זה יסגור בימים שיבחרו, את הקבוצה בין השעות 12 בלילה עד 10 בבוקר)<br>לאחר מכן, בוחרים באילו ימים זה יפעל.<br><br><strong>ניהול ההגדרות:</strong><br>פקודת /times לשינוי או מחיקת זמני סגירה."
+            },
+            {
+                name: "איקס עיגול",
+                image: "https://envs.sh/ibc.jpg",
+                link: "https://t.me/X_and_O_RoBot",
+                description: "<strong>מה הבוט עושה?</strong><br>נותן לוח משחק בקבוצה באמצעות כפתורי אינליין.<br><br><strong>איך משחקים?</strong><br>פשוט תוסיפו את הבוט לקבוצה שלכם ותשימו לו ניהול.<br>ואז תשלחו שם את הפקודה `/game` והבוט יתן לכם לשחק"
+            },
+            {
+                name: "Get Any Restricted Messages",
+                image: "https://envs.sh/ibe.jpg",
+                link: "https://t.me/get_any_messages_bot",
+                description: "<strong>מה הבוט עושה?</strong><br>בעזרת הבוט הזה תוכל לקבל הודעות שמנהלי הערוץ/קבוצה נעלו את האפשרות של להעביר ממנה.<br><br><strong>איך משתמשים?</strong><br><strong>ערוץ פרטי:</strong><br>קודם שלח קישור הזמנה לערוץ ולאחר מכן קישור לפוסט בלבד.<br><br><strong>ערוץ ציבורי:</strong><br>שלח רק קישור לפוסט שאתה רוצה וזהו.<br><br><strong>איך יודעים מה זה ערוץ ציבורי?</strong><br>אם יש בקישור להודעה את זה /c/ אז כנראה שהערוץ פרטי."
+            },
+        ];
 
-        const botGrid = document.querySelector('.bot-grid');
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const botList = document.querySelector('.bot-list');
+        const botInfo = document.querySelector('.bot-info');
         const themeToggle = document.querySelector('.theme-toggle');
 
-        // יצירת כרטיסי הבוטים
+        // יצירת רשימת הבוטים בתפריט
         bots.forEach(bot => {
-            const card = document.createElement('div');
-            card.className = 'bot-card';
-            card.innerHTML = `
+            const listItem = document.createElement('div');
+            listItem.className = 'bot-list-item';
+            listItem.innerHTML = `
                 <img src="${bot.image}" alt="${bot.name}">
-                <h3>${bot.name}</h3>
+                <span>${bot.name}</span>
             `;
-            
-            card.addEventListener('click', (e) => {
-                const existingDetails = document.querySelector('.bot-details');
-                if (existingDetails) {
-                    if (existingDetails.parentElement === card.parentElement && 
-                        existingDetails.previousElementSibling === card) {
-                        existingDetails.remove();
-                        return;
-                    }
-                    existingDetails.remove();
-                }
-
-                const details = document.createElement('div');
-                details.className = 'bot-details';
-                details.innerHTML = `
-                    <div>${bot.description}</div>
-                    <a href="${bot.link}" class="action-button" style="margin-top: 1rem;">
-                        <i class="fas fa-robot"></i> מעבר לבוט
-                    </a>
-                `;
-
-                card.parentNode.insertBefore(details, card.nextElementSibling);
-            });
-            
-            botGrid.appendChild(card);
+            listItem.addEventListener('click', () => showBotInfo(bot));
+            botList.appendChild(listItem);
         });
 
-        // מערכת ערכת צבעים
+        function showBotInfo(bot) {
+            botInfo.innerHTML = `
+                <div class="bot-details">
+                    <img src="${bot.image}" alt="${bot.name}" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem;">
+                    <h2>${bot.name}</h2>
+                    <div style="margin: 1rem 0;">${bot.description}</div>
+                    <a href="${bot.link}" class="action-button">
+                        <i class="fas fa-robot"></i> מעבר לבוט
+                    </a>
+                </div>
+            `;
+            botInfo.classList.add('active');
+            closeSidebar();
+        }
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        overlay.addEventListener('click', closeSidebar);
+
         let isDark = false;
         themeToggle.addEventListener('click', () => {
             isDark = !isDark;
