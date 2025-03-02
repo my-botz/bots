@@ -87,13 +87,17 @@
     .bot-header span {
       font-size: 1.2rem;
     }
+    /* הגדרות לאזורי הפרטים עם אנימציה */
     .bot-details {
-      display: none;
-      padding: 15px;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 15px;
       background: rgba(255, 255, 255, 0.1);
+      transition: max-height 0.5s ease, padding 0.5s ease;
     }
     .bot-details.active {
-      display: block;
+      max-height: 1000px; /* ערך מספיק גבוה כדי לאפשר את כל התוכן */
+      padding: 15px;
     }
     .bot-details img {
       width: 100px;
@@ -180,37 +184,93 @@
         name: "מוחק קישורים",
         image: "https://envs.sh/iez.jpg",
         link: "https://t.me/clear_links1_bot",
-        description: "<strong>מה הבוט עושה?</strong><br>- מוחק קישורים שמשתמשים שולחים בקבוצה.<br>- נותן אזהרות למשתמשים, ואז אחרי 3 אזהרות מסיר את המשתמש.<br>- מתעלם מהודעות מנהלים."
+        description: "<strong>מה הבוט עושה?</strong><br>- מוחק קישורים שמשתמשים שולחים בקבוצה.<br>- נותן אזהרות למשתמשים על הקישורים, ואז אחרי 3 אזהרות מרחיק את המשתמש ששלח.<br>מתעלם מהודעות של מנהלים רגילים, ומנהלים אנונימיים."
       },
       {
         name: "מסדר רשימות",
         image: "https://envs.sh/ieU.jpg",
         link: "https://t.me/Boss_list_order_bot",
-        description: "<strong>מה הבוט עושה:</strong><br>מסדר רשימה לפי סדר האותיות.<br><br><strong>איך משתמשים:</strong><br>שולחים לבוט את הרשימה, וכל פריט בשורה נפרדת, והבוט מחזיר רשימה מסודרת."
+        description: "<strong>מה הבוט עושה:</strong><br>מסדר רשימה לפי סדר האותיות<br><br><strong>איך משתמשים:</strong><br>שולחים לבוט את הרשימה שרוצים (כל פריט מהרשימה בשורה נפרדת) והבוט שולח הודעה של בחירה איך לסדר את הרשימה...<br><br><strong>רגיל:</strong> הבוט שולח את הרשימה מסודרת לפי הסדר בלי שום תוספת בהתחלה...<br><strong>נקודה:</strong> הבוט יוסיף • לפני כל פריט ברשימה...<br><strong>כוכבית:</strong> הבוט מוסיף * לפני כל פריט...<br><strong>קו:</strong> הבוט יוסיף - לפני כל פריט ברשימה...<br><strong>מספרים:</strong> הבוט יוסיף מספרים לפי הסדר לפני כל פריט..."
       },
       {
         name: "מסיר תג הועבר",
         image: "https://envs.sh/ie7.jpg",
         link: "https://t.me/delete_tag_transferred_bot",
-        description: "<strong>מה הבוט עושה?</strong><br>מסיר את התג 'הועבר' מהקישורים בקבצים ובוידאו."
+        description: "<strong>מה הבוט עושה?</strong><br>מסיר את הקישורים מהcaption של הוידאו או הקובץ."
       },
-      // ניתן להוסיף כאן עוד בוטים לפי הצורך
+      {
+        name: "כפתור אוטומטי בערוץ",
+        image: "https://envs.sh/iiY.jpg",
+        link: "https://t.me/button_on_the_channel_Bot",
+        description: "<strong>מה הבוט עושה?</strong><br>מוסיף כפתורי קישור אוטומטית לכל הודעה שנשלחת בערוץ.<br><br><strong>איך מוסיפים כפתור?</strong><br>באמצעות הפקודה /add ואז לרדת שורה לכתוב את השם של הכפתור קישור ושורה מתחת את הקישור.<br>לדוגמא:<br><code>/add<br>לעוד בוטים<br>https://t.me/bot_sratim_sdarot</code><br><br><strong>איך מוחקים כפתור?</strong><br>עם הפקודה /delete.<br><br><strong>איך צופים בכפתורים שיש בערוץ?</strong><br>עם הפקודה /list."
+      },
+      {
+        name: "אנונימבוט",
+        image: "https://envs.sh/iiv.jpg",
+        link: "https://t.me/The_Anonimos_bot",
+        description: "<strong>מה הבוט עושה?</strong><br>נותן לך לדבר עם משתמשים רנדומלים שנמצאים בבוט, באנונימיות מוחלטת.<br><br><strong>איך משתמשים בבוט?</strong><br>פשוט כנסו לבוט ושלחו את הפקודה /chat ואז תחכו שעוד משתמש יכנס לצ'אט, ופשוט תתחילו לדבר איתו...<br>ואז בשביל לצאת מהשיחה שלחו את הפקודה /exit."
+      },
+      {
+        name: "חיפוש טורנטים",
+        image: "https://envs.sh/iia.jpg",
+        link: "https://t.me/search_torrents_RoBot",
+        description: "<strong>מה הבוט עושה?</strong><br>מחפש קישורי מגנט לסרטים ב-YTS.<br><br><strong>איך משתמשים בבוט?</strong><br>פשוט שולחים לבוט את השם של הסרט שרוצים באנגלית והבוט שולח תוצאות. (מומלץ לכתוב גם שנת יציאה)."
+      },
+      {
+        name: "חיוב הרשמה לערוץ",
+        image: "https://envs.sh/ibh.jpg",
+        link: "https://t.me/Registration_Billing_Bot",
+        description: "<strong>מה הבוט עושה?</strong><br>מחייב משתמשים להצטרף לערוץ שהמנהל של הקבוצה מגדיר.<br>כל משתמש ששולח הודעה בקבוצה הבוט בודק אם הוא רשום לערוץ שהמנהל הגדיר, ואז אם הוא רשום הבוט מתעלם, ואם הוא לא רשום הבוט מגביל אותו משליחת הודעות ואז כותב לו שבשביל לשלוח הודעות הוא חייב להירשם עם כפתורים כפתור ראשון עם קישור לערוץ, וכפתור שני שמאשר שנרשמתם...<br><br><strong>איך מגדירים ערוץ?</strong><br>- מוסיפים את הבוט לקבוצה שלכם ושמים לו ניהול.<br>- מוסיפים את הבוט גם לערוץ שלשם הוא מחייב עם הרשאה של הזמנת משתמשים באמצעות קישור.<br>- שולחים בקבוצה את הפקודה /channel ואז את המזהה של הקבוצה<br>לדוגמא: /channel -10012345678<br>וזהו, הבוט יחייב לשם כל משתמש ששולח הודעה בקבוצה שלכם"
+      },
+      {
+        name: "מוריד שירים מיוטיוב",
+        image: "https://envs.sh/ibD.jpg",
+        link: "https://t.me/Music_Yt_RoBot",
+        description: "<strong>מה הבוט עושה?</strong><br>מחפש שירים מיוטיוב ומוריד אותם בתור mp3.<br><br><strong>איך משתמשים?</strong><br>פשוט שלחו לבוט שם של שיר או זמר שאתם רוצים,<br>הבוט יתן לכם 50 תוצאות,<br>ואז תלחצו על התוצאה שאתם רוצים והבוט יוריד לכם את השיר."
+      },
+      {
+        name: "מעביר הודעות",
+        image: "https://envs.sh/ib2.jpg",
+        link: "https://t.me/My_Forward_Messages_RoBot",
+        description: "<strong>מה הבוט עושה?</strong><br>מעביר את כל ההודעות שיש בערוץ, לערוץ אחר.<br><br><strong>איך משתמשים?</strong><br>◄ הוסף בוט או משתמשבוט<br>◄ הוסף לפחות אחד לערוץ (הבוט/המשתמשבוט שלך חייב להיות מנהל שם)<br>◄ אתה יכול להוסיף צ'אטים או בוטים באמצעות /settings<br>◄ אם הערוץ הוא פרטי, המשתמש הבוט שלך חייב להיות חבר שם או שהבוט שלך חייב להזדקק להרשאת מנהל גם שם<br>◄ לאחר מכן השתמש /forward כדי להעביר הודעות"
+      },
+      {
+        name: "Search Movies",
+        image: "https://envs.sh/ibF.jpg",
+        link: "https://t.me/filter_sratim5_bot",
+        description: "<strong>מה הבוט עושה?</strong><br>מחפש סרטים ונותן תוצאות לבחירה, ואז כשבוחרים תוצאה הבוט שולח את הקובץ של הסרט או הסדרה.<br><br><strong>איך משתמשים?</strong><br>פשוט כתבו את השם של הסרט/סדרה לבוט בפרטי.<br>שימו לב שאתם כותבים רק את השם של הסרט בלי עוד כלום מסביב..."
+      },
+      {
+        name: "סוגר קבוצות",
+        image: "https://envs.sh/ibA.jpg",
+        link: "https://t.me/Time_Group_RoBot",
+        description: "<strong>מה הבוט עושה?</strong><br>סוגר את הקבוצה לזמן שמוגדר בימים שנבחרים.<br><br><strong>איך משתמשים?</strong><br><strong>סגירה ופתיחה מיידית:</strong><br>פקודת ה /close לסגירה, ו /open לפתיחה.<br><br><strong>סגירה לזמן מוגדר:</strong><br>ניתן לסגור לזמן מסויים, לדוג':<br>יסגור לדקה - /close 1m.<br>אפשר גם לשעות/ימים.<br><br><strong>סגירה קבועה לפי שעות:</strong><br>פקודת /time + [טווח השעות] לסגירה בשעות קבועות. (לדוגמא: /time 00:00 - 10:00 זה יסגור בימים שיבחרו, את הקבוצה בין השעות 12 בלילה עד 10 בבוקר)<br>לאחר מכן, בוחרים באילו ימים זה יפעל.<br><br><strong>ניהול ההגדרות:</strong><br>פקודת /times לשינוי או מחיקת זמני סגירה."
+      },
+      {
+        name: "איקס עיגול",
+        image: "https://envs.sh/ibc.jpg",
+        link: "https://t.me/X_and_O_RoBot",
+        description: "<strong>מה הבוט עושה?</strong><br>נותן לוח משחק בקבוצה באמצעות כפתורי אינליין.<br><br><strong>איך משחקים?</strong><br>פשוט תוסיפו את הבוט לקבוצה שלכם ותשימו לו ניהול.<br>ואז תשלחו שם את הפקודה `/game` והבוט יתן לכם לשחק"
+      },
+      {
+        name: "Get Any Restricted Messages",
+        image: "https://envs.sh/ibe.jpg",
+        link: "https://t.me/get_any_messages_bot",
+        description: "<strong>מה הבוט עושה?</strong><br>בעזרת הבוט הזה תוכל לקבל הודעות שמנהלי הערוץ/קבוצה נעלו את האפשרות של להעביר ממנה.<br><br><strong>איך משתמשים?</strong><br><strong>ערוץ פרטי:</strong><br>קודם שלח קישור הזמנה לערוץ ולאחר מכן קישור לפוסט בלבד.<br><br><strong>ערוץ ציבורי:</strong><br>שלח רק קישור לפוסט שאתה רוצה וזהו.<br><br><strong>איך יודעים מה זה ערוץ ציבורי?</strong><br>אם יש בקישור להודעה את זה /c/ אז כנראה שהערוץ פרטי."
+      }
     ];
 
     const botListContainer = document.querySelector('.bot-list');
-    let activeDetails = null; // משתנה לשמירת הפרטים הפתוחים
+    let activeDetails = null;
 
     bots.forEach((bot) => {
-      // יצירת אלמנט עבור כל בוט
       const botItem = document.createElement('div');
       botItem.classList.add('bot-item');
 
-      // חלק הכותרת של הבוט
       const botHeader = document.createElement('div');
       botHeader.classList.add('bot-header');
       botHeader.innerHTML = `<img src="${bot.image}" alt="${bot.name}"><span>${bot.name}</span>`;
 
-      // חלק הפרטים (אגורדיון) של הבוט
       const botDetails = document.createElement('div');
       botDetails.classList.add('bot-details');
       botDetails.innerHTML = `
@@ -220,21 +280,16 @@
         <a href="${bot.link}" class="action-button"><i class="fas fa-robot"></i> מעבר לבוט</a>
       `;
 
-      // לחיצה על הכותרת – הפעלת/סגירת האגורדיון
       botHeader.addEventListener('click', () => {
         if (botDetails.classList.contains('active')) {
-          // סוגרים את האגורדיון אם הוא פתוח
           botDetails.classList.remove('active');
           activeDetails = null;
         } else {
-          // סוגרים את האגורדיון הפתוח אם קיים
           if (activeDetails) {
             activeDetails.classList.remove('active');
           }
-          // פותחים את האגורדיון של הבוט הנבחר
           botDetails.classList.add('active');
           activeDetails = botDetails;
-          // גלילה עדינה למיקום האגורדיון (אופציונלי)
           botDetails.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       });
@@ -244,7 +299,6 @@
       botListContainer.appendChild(botItem);
     });
 
-    // הפונקציונליות למתג ערכת נושא
     const themeToggle = document.querySelector('.theme-toggle');
     let isDark = false;
     themeToggle.addEventListener('click', () => {
