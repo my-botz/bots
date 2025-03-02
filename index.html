@@ -106,6 +106,14 @@
             right: 0;
         }
 
+        .sidebar-title {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
         .welcome-section {
             margin-top: 70px;
             text-align: center;
@@ -120,7 +128,6 @@
 
         .bot-list {
             list-style: none;
-            margin-top: 60px;
         }
 
         .bot-list-item {
@@ -165,19 +172,20 @@
         .bottom-buttons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            padding: 2rem;
+            gap: 0.5rem;
+            padding: 1rem;
             flex-wrap: wrap;
             margin-top: auto;
         }
 
         .action-button {
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             background: var(--primary-color);
             color: white;
             text-decoration: none;
             transition: 0.3s;
+            font-size: 0.9rem;
         }
 
         .action-button:hover {
@@ -199,6 +207,7 @@
     </header>
 
     <div class="sidebar">
+        <h2 class="sidebar-title">תפריט בוטים</h2>
         <div class="bot-list">
             <!-- רשימת הבוטים תיווצר דינמית ע"י JavaScript -->
         </div>
@@ -215,7 +224,7 @@
 
         <div class="bottom-buttons">
             <a href="https://t.me/bot_sratim_sdarot" class="action-button">
-                <i class="fas fa-tv"></i> ערוץ סרטים וסדרות
+                <i class="fas fa-bell"></i> ערוץ עדכונים
             </a>
             <a href="https://t.me/+qn1oVKhkA3RlZmQ0" class="action-button">
                 <i class="fas fa-users"></i> קבוצת תמיכה
@@ -227,20 +236,86 @@
     </main>
 
     <script>
+        // כאן אתה יכול להוסיף את ההסברים שלך לכל בוט
         const bots = [
             {
                 name: "מוחק קישורים",
                 image: "https://envs.sh/iez.jpg",
                 link: "https://t.me/clear_links1_bot",
-                description: "בוט שמוחק קישורים מהודעות בקבוצה. שימושי לשמירה על ניקיון הקבוצה ומניעת ספאם."
+                description: "הכנס כאן את ההסבר המפורט על הבוט מוחק קישורים" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "מסדר רשימות",
                 image: "https://envs.sh/ieU.jpg",
                 link: "https://t.me/Boss_list_order_bot",
-                description: "בוט שעוזר לארגן ולסדר רשימות בצורה נוחה ויעילה."
+                description: "הכנס כאן את ההסבר המפורט על הבוט מסדר רשימות" // החלף את הטקסט הזה בהסבר שלך
             },
-            // המשך הוספת כל הבוטים עם תיאורים...
+            {
+                name: "מסיר תג הועבר",
+                image: "https://envs.sh/ie7.jpg",
+                link: "https://t.me/delete_tag_transferred_bot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט מסיר תג הועבר" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "כפתור אוטומטי בערוץ",
+                image: "https://envs.sh/iiY.jpg",
+                link: "https://t.me/button_on_the_channel_Bot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט כפתור אוטומטי בערוץ" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "אנונימבוט",
+                image: "https://envs.sh/iiv.jpg",
+                link: "https://t.me/The_Anonimos_bot",
+                description: "הכנס כאן את ההסבר המפורט על האנונימבוט" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "חיפוש טורנטים",
+                image: "https://envs.sh/iia.jpg",
+                link: "https://t.me/search_torrents_RoBot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט חיפוש טורנטים" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "חיוב הרשמה לערוץ",
+                image: "https://envs.sh/ibh.jpg",
+                link: "https://t.me/Registration_Billing_Bot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט חיוב הרשמה לערוץ" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "מוריד שירים מיוטיוב",
+                image: "https://envs.sh/ibD.jpg",
+                link: "https://t.me/Music_Yt_RoBot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט מוריד שירים מיוטיוב" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "מעביר הודעות",
+                image: "https://envs.sh/ib2.jpg",
+                link: "https://t.me/My_Forward_Messages_RoBot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט מעביר הודעות" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "Search Movies",
+                image: "https://envs.sh/ibF.jpg",
+                link: "https://t.me/filter_sratim5_bot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט Search Movies" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "סוגר קבוצות",
+                image: "https://envs.sh/ibA.jpg",
+                link: "https://t.me/Time_Group_RoBot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט סוגר קבוצות" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "איקס עיגול",
+                image: "https://envs.sh/ibc.jpg",
+                link: "https://t.me/X_and_O_RoBot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט איקס עיגול" // החלף את הטקסט הזה בהסבר שלך
+            },
+            {
+                name: "Get Any Messages",
+                image: "https://envs.sh/ibe.jpg",
+                link: "https://t.me/get_any_messages_bot",
+                description: "הכנס כאן את ההסבר המפורט על הבוט Get Any Messages" // החלף את הטקסט הזה בהסבר שלך
+            }
         ];
 
         const menuBtn = document.querySelector('.menu-btn');
@@ -262,14 +337,13 @@
             botList.appendChild(listItem);
         });
 
-        // פונקציה להצגת מידע על הבוט
         function showBotInfo(bot) {
             botInfo.innerHTML = `
                 <div class="bot-details">
                     <img src="${bot.image}" alt="${bot.name}" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem;">
                     <h2>${bot.name}</h2>
-                    <p>${bot.description}</p>
-                    <a href="${bot.link}" class="action-button" style="margin-top: 1rem;">
+                    <div style="margin: 1rem 0;">${bot.description}</div>
+                    <a href="${bot.link}" class="action-button">
                         <i class="fas fa-robot"></i> מעבר לבוט
                     </a>
                 </div>
@@ -278,7 +352,6 @@
             closeSidebar();
         }
 
-        // פתיחה וסגירה של התפריט
         menuBtn.addEventListener('click', () => {
             sidebar.classList.add('active');
             overlay.classList.add('active');
@@ -291,7 +364,6 @@
 
         overlay.addEventListener('click', closeSidebar);
 
-        // מצב כהה/בהיר
         let isDark = false;
         themeToggle.addEventListener('click', () => {
             isDark = !isDark;
