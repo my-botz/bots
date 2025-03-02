@@ -65,12 +65,6 @@
             z-index: 1000;
         }
 
-        .header-title {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
         .menu-btn, .theme-toggle {
             font-size: 1.5rem;
             cursor: pointer;
@@ -175,24 +169,6 @@
             backdrop-filter: blur(5px);
         }
 
-        .back-button {
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .back-button:hover {
-            transform: scale(1.05);
-        }
-
         .bottom-buttons {
             display: flex;
             justify-content: center;
@@ -225,7 +201,6 @@
         <button class="menu-btn">
             <i class="fas fa-bars"></i>
         </button>
-        <h1 class="header-title">The Joker Bots</h1>
         <button class="theme-toggle">
             <i class="fas fa-moon"></i>
         </button>
@@ -261,84 +236,85 @@
     </main>
 
     <script>
+        // כאן אתה יכול להוסיף את ההסברים שלך לכל בוט
         const bots = [
             {
                 name: "מוחק קישורים",
                 image: "https://envs.sh/iez.jpg",
                 link: "https://t.me/clear_links1_bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט מוחק קישורים"
+                description: "הכנס כאן את ההסבר המפורט על הבוט מוחק קישורים" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "מסדר רשימות",
                 image: "https://envs.sh/ieU.jpg",
                 link: "https://t.me/Boss_list_order_bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט מסדר רשימות"
+                description: "הכנס כאן את ההסבר המפורט על הבוט מסדר רשימות" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "מסיר תג הועבר",
                 image: "https://envs.sh/ie7.jpg",
                 link: "https://t.me/delete_tag_transferred_bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט מסיר תג הועבר"
+                description: "הכנס כאן את ההסבר המפורט על הבוט מסיר תג הועבר" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "כפתור אוטומטי בערוץ",
                 image: "https://envs.sh/iiY.jpg",
                 link: "https://t.me/button_on_the_channel_Bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט כפתור אוטומטי בערוץ"
+                description: "הכנס כאן את ההסבר המפורט על הבוט כפתור אוטומטי בערוץ" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "אנונימבוט",
                 image: "https://envs.sh/iiv.jpg",
                 link: "https://t.me/The_Anonimos_bot",
-                description: "הכנס כאן את ההסבר המפורט על האנונימבוט"
+                description: "הכנס כאן את ההסבר המפורט על האנונימבוט" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "חיפוש טורנטים",
                 image: "https://envs.sh/iia.jpg",
                 link: "https://t.me/search_torrents_RoBot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט חיפוש טורנטים"
+                description: "הכנס כאן את ההסבר המפורט על הבוט חיפוש טורנטים" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "חיוב הרשמה לערוץ",
                 image: "https://envs.sh/ibh.jpg",
                 link: "https://t.me/Registration_Billing_Bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט חיוב הרשמה לערוץ"
+                description: "הכנס כאן את ההסבר המפורט על הבוט חיוב הרשמה לערוץ" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "מוריד שירים מיוטיוב",
                 image: "https://envs.sh/ibD.jpg",
                 link: "https://t.me/Music_Yt_RoBot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט מוריד שירים מיוטיוב"
+                description: "הכנס כאן את ההסבר המפורט על הבוט מוריד שירים מיוטיוב" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "מעביר הודעות",
                 image: "https://envs.sh/ib2.jpg",
                 link: "https://t.me/My_Forward_Messages_RoBot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט מעביר הודעות"
+                description: "הכנס כאן את ההסבר המפורט על הבוט מעביר הודעות" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "Search Movies",
                 image: "https://envs.sh/ibF.jpg",
                 link: "https://t.me/filter_sratim5_bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט Search Movies"
+                description: "הכנס כאן את ההסבר המפורט על הבוט Search Movies" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "סוגר קבוצות",
                 image: "https://envs.sh/ibA.jpg",
                 link: "https://t.me/Time_Group_RoBot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט סוגר קבוצות"
+                description: "הכנס כאן את ההסבר המפורט על הבוט סוגר קבוצות" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "איקס עיגול",
                 image: "https://envs.sh/ibc.jpg",
                 link: "https://t.me/X_and_O_RoBot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט איקס עיגול"
+                description: "הכנס כאן את ההסבר המפורט על הבוט איקס עיגול" // החלף את הטקסט הזה בהסבר שלך
             },
             {
                 name: "Get Any Messages",
                 image: "https://envs.sh/ibe.jpg",
                 link: "https://t.me/get_any_messages_bot",
-                description: "הכנס כאן את ההסבר המפורט על הבוט Get Any Messages"
+                description: "הכנס כאן את ההסבר המפורט על הבוט Get Any Messages" // החלף את הטקסט הזה בהסבר שלך
             }
         ];
 
@@ -349,6 +325,7 @@
         const botInfo = document.querySelector('.bot-info');
         const themeToggle = document.querySelector('.theme-toggle');
 
+        // יצירת רשימת הבוטים בתפריט
         bots.forEach(bot => {
             const listItem = document.createElement('div');
             listItem.className = 'bot-list-item';
@@ -363,9 +340,6 @@
         function showBotInfo(bot) {
             botInfo.innerHTML = `
                 <div class="bot-details">
-                    <button class="back-button" onclick="goBack()">
-                        <i class="fas fa-arrow-right"></i> חזרה לדף הראשי
-                    </button>
                     <img src="${bot.image}" alt="${bot.name}" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem;">
                     <h2>${bot.name}</h2>
                     <div style="margin: 1rem 0;">${bot.description}</div>
@@ -375,13 +349,7 @@
                 </div>
             `;
             botInfo.classList.add('active');
-            document.querySelector('.welcome-section').style.display = 'none';
             closeSidebar();
-        }
-
-        function goBack() {
-            botInfo.classList.remove('active');
-            document.querySelector('.welcome-section').style.display = 'block';
         }
 
         menuBtn.addEventListener('click', () => {
