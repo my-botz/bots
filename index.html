@@ -133,8 +133,8 @@
         .bot-list-item {
             display: flex;
             align-items: center;
-            padding: 0.5rem;
-            margin-bottom: 0.3rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -145,8 +145,8 @@
         }
 
         .bot-list-item img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             margin-left: 1rem;
         }
@@ -165,12 +165,8 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             backdrop-filter: blur(5px);
-        }
-
-        .bot-details h2 {
-            margin-bottom: 0.5rem;
         }
 
         .bottom-buttons {
@@ -195,28 +191,6 @@
         .action-button:hover {
             transform: scale(1.05);
         }
-
-        .dynamic-message {
-            text-align: center;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-size: 1.2rem;
-            margin-top: 70px;
-        }
-
-        .main-menu-button {
-            display: block;
-            width: 80%;
-            margin: 1rem auto;
-            padding: 1rem;
-            font-size: 1.2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -231,14 +205,6 @@
             <i class="fas fa-moon"></i>
         </button>
     </header>
-
-    <div class="dynamic-message" id="dynamicMessage">
-        ברוכים הבאים לבוטים של הג'וקר!
-    </div>
-    
-    <button class="main-menu-button" onclick="document.querySelector('.menu-btn').click()">
-        לבוטים של הג'וקר
-    </button>
 
     <div class="sidebar">
         <h2 class="sidebar-title">תפריט בוטים</h2>
@@ -270,6 +236,7 @@
     </main>
 
     <script>
+        // כאן אתה יכול להוסיף את ההסברים שלך לכל בוט
         const bots = [
             {
                 name: "מוחק קישורים",
@@ -383,7 +350,6 @@
             `;
             botInfo.classList.add('active');
             closeSidebar();
-            history.pushState({}, '');
         }
 
         menuBtn.addEventListener('click', () => {
@@ -404,20 +370,6 @@
             document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
             themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
-
-        // טיפול בכפתור חזרה
-        window.addEventListener('popstate', function(event) {
-            if (document.querySelector('.bot-info.active')) {
-                document.querySelector('.bot-info').classList.remove('active');
-                event.preventDefault();
-                return false;
-            }
-        });
-
-        // פונקציה לעדכון ההודעה הדינמית
-        function updateDynamicMessage(message) {
-            document.getElementById('dynamicMessage').textContent = message;
-        }
     </script>
 </body>
 </html>
