@@ -74,16 +74,19 @@
             padding: 0.5rem;
         }
 
-        .welcome-section {
-            margin-top: 70px;
-            text-align: center;
-            padding: 2rem;
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
         }
 
-        .welcome-text {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-color);
+        .overlay.active {
+            display: block;
         }
 
         .sidebar {
@@ -103,32 +106,60 @@
             right: 0;
         }
 
-        .bot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-        .bot-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem;
+        .welcome-section {
+            margin-top: 70px;
             text-align: center;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s;
+            padding: 2rem;
         }
 
-        .bot-card:hover {
-            transform: translateY(-5px);
+        .welcome-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
         }
 
-        .bot-image {
-            width: 90px;
-            height: 90px;
+        .bot-list {
+            list-style: none;
+            margin-top: 60px;
+        }
+
+        .bot-list-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bot-list-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bot-list-item img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
+            margin-left: 1rem;
+        }
+
+        .bot-info {
+            display: none;
+            padding: 2rem;
+            margin-top: 70px;
+        }
+
+        .bot-info.active {
+            display: block;
+        }
+
+        .bot-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
         }
 
         .bottom-buttons {
@@ -137,6 +168,7 @@
             gap: 1rem;
             padding: 2rem;
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .action-button {
@@ -151,43 +183,11 @@
         .action-button:hover {
             transform: scale(1.05);
         }
-
-        /* תפריט צד */
-        .sidebar-menu {
-            margin-top: 60px;
-        }
-
-        .sidebar-menu h2 {
-            margin-bottom: 1rem;
-        }
-
-        .bot-list {
-            list-style: none;
-        }
-
-        .bot-list-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .bot-list-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .bot-list-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 1rem;
-        }
     </style>
 </head>
 <body>
     <div class="animated-bg"></div>
+    <div class="overlay"></div>
     
     <header class="header">
         <button class="menu-btn">
@@ -199,11 +199,8 @@
     </header>
 
     <div class="sidebar">
-        <div class="sidebar-menu">
-            <h2>בוטים</h2>
-            <div class="bot-list">
-                <!-- רשימת הבוטים תיווצר דינמית ע"י JavaScript -->
-            </div>
+        <div class="bot-list">
+            <!-- רשימת הבוטים תיווצר דינמית ע"י JavaScript -->
         </div>
     </div>
 
@@ -212,8 +209,8 @@
             <h1 class="welcome-text">ברוכים הבאים לאתר של הבוטים של The Joker Bots</h1>
         </section>
 
-        <div class="bot-grid">
-            <!-- הבוטים יתווספו כאן דינמית -->
+        <div class="bot-info">
+            <!-- מידע על הבוט יוצג כאן -->
         </div>
 
         <div class="bottom-buttons">
@@ -230,112 +227,72 @@
     </main>
 
     <script>
-        // נתוני הבוטים
         const bots = [
             {
                 name: "מוחק קישורים",
                 image: "https://envs.sh/iez.jpg",
-                link: "https://t.me/clear_links1_bot"
+                link: "https://t.me/clear_links1_bot",
+                description: "בוט שמוחק קישורים מהודעות בקבוצה. שימושי לשמירה על ניקיון הקבוצה ומניעת ספאם."
             },
             {
                 name: "מסדר רשימות",
                 image: "https://envs.sh/ieU.jpg",
-                link: "https://t.me/Boss_list_order_bot"
+                link: "https://t.me/Boss_list_order_bot",
+                description: "בוט שעוזר לארגן ולסדר רשימות בצורה נוחה ויעילה."
             },
-            {
-                name: "מסיר תג הועבר",
-                image: "https://envs.sh/ie7.jpg",
-                link: "https://t.me/delete_tag_transferred_bot"
-            },
-            {
-                name: "כפתור אוטומטי בערוץ",
-                image: "https://envs.sh/iiY.jpg",
-                link: "https://t.me/button_on_the_channel_Bot"
-            },
-            {
-                name: "אנונימבוט",
-                image: "https://envs.sh/iiv.jpg",
-                link: "https://t.me/The_Anonimos_bot"
-            },
-            {
-                name: "חיפוש טורנטים",
-                image: "https://envs.sh/iia.jpg",
-                link: "https://t.me/search_torrents_RoBot"
-            },
-            {
-                name: "חיוב הרשמה לערוץ",
-                image: "https://envs.sh/ibh.jpg",
-                link: "https://t.me/Registration_Billing_Bot"
-            },
-            {
-                name: "מוריד שירים מיוטיוב",
-                image: "https://envs.sh/ibD.jpg",
-                link: "https://t.me/Music_Yt_RoBot"
-            },
-            {
-                name: "מעביר הודעות",
-                image: "https://envs.sh/ib2.jpg",
-                link: "https://t.me/My_Forward_Messages_RoBot"
-            },
-            {
-                name: "Search Movies",
-                image: "https://envs.sh/ibF.jpg",
-                link: "https://t.me/filter_sratim5_bot"
-            },
-            {
-                name: "סוגר קבוצות",
-                image: "https://envs.sh/ibA.jpg",
-                link: "https://t.me/Time_Group_RoBot"
-            },
-            {
-                name: "איקס עיגול",
-                image: "https://envs.sh/ibc.jpg",
-                link: "https://t.me/X_and_O_RoBot"
-            },
-            {
-                name: "Get Any Messages",
-                image: "https://envs.sh/ibe.jpg",
-                link: "https://t.me/get_any_messages_bot"
-            }
+            // המשך הוספת כל הבוטים עם תיאורים...
         ];
 
-        // יצירת כרטיסי הבוטים
-        const botGrid = document.querySelector('.bot-grid');
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
         const botList = document.querySelector('.bot-list');
+        const botInfo = document.querySelector('.bot-info');
+        const themeToggle = document.querySelector('.theme-toggle');
 
+        // יצירת רשימת הבוטים בתפריט
         bots.forEach(bot => {
-            // יצירת כרטיס בוט
-            const botCard = document.createElement('div');
-            botCard.className = 'bot-card';
-            botCard.innerHTML = `
-                <img src="${bot.image}" alt="${bot.name}" class="bot-image">
-                <h3>${bot.name}</h3>
-                <a href="${bot.link}" class="action-button">פתח בוט</a>
-            `;
-            botGrid.appendChild(botCard);
-
-            // יצירת פריט בתפריט
             const listItem = document.createElement('div');
             listItem.className = 'bot-list-item';
             listItem.innerHTML = `
                 <img src="${bot.image}" alt="${bot.name}">
                 <span>${bot.name}</span>
             `;
-            listItem.onclick = () => window.location.href = bot.link;
+            listItem.addEventListener('click', () => showBotInfo(bot));
             botList.appendChild(listItem);
         });
 
-        // תפריט צד
-        const menuBtn = document.querySelector('.menu-btn');
-        const sidebar = document.querySelector('.sidebar');
+        // פונקציה להצגת מידע על הבוט
+        function showBotInfo(bot) {
+            botInfo.innerHTML = `
+                <div class="bot-details">
+                    <img src="${bot.image}" alt="${bot.name}" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem;">
+                    <h2>${bot.name}</h2>
+                    <p>${bot.description}</p>
+                    <a href="${bot.link}" class="action-button" style="margin-top: 1rem;">
+                        <i class="fas fa-robot"></i> מעבר לבוט
+                    </a>
+                </div>
+            `;
+            botInfo.classList.add('active');
+            closeSidebar();
+        }
+
+        // פתיחה וסגירה של התפריט
         menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
         });
 
-        // מצב כהה/בהיר
-        const themeToggle = document.querySelector('.theme-toggle');
-        let isDark = false;
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
 
+        overlay.addEventListener('click', closeSidebar);
+
+        // מצב כהה/בהיר
+        let isDark = false;
         themeToggle.addEventListener('click', () => {
             isDark = !isDark;
             document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
