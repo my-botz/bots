@@ -133,11 +133,12 @@
         .bot-list-item {
             display: flex;
             align-items: center;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 10px;
+            padding: 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 0.9rem;
         }
 
         .bot-list-item:hover {
@@ -145,10 +146,10 @@
         }
 
         .bot-list-item img {
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            margin-left: 1rem;
+            margin-left: 0.5rem;
         }
 
         .bot-info {
@@ -164,9 +165,13 @@
         .bot-details {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             backdrop-filter: blur(5px);
+        }
+
+        .bot-details h2 {
+            margin-bottom: 0.5rem;
         }
 
         .bottom-buttons {
@@ -236,7 +241,6 @@
     </main>
 
     <script>
-        // כאן אתה יכול להוסיף את ההסברים שלך לכל בוט
         const bots = [
             {
                 name: "מוחק קישורים",
@@ -318,12 +322,21 @@
             },
         ];
 
+      
+
         const menuBtn = document.querySelector('.menu-btn');
         const sidebar = document.querySelector('.sidebar');
         const overlay = document.querySelector('.overlay');
         const botList = document.querySelector('.bot-list');
         const botInfo = document.querySelector('.bot-info');
         const themeToggle = document.querySelector('.theme-toggle');
+
+        // ניהול היסטוריה
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.page === 'welcome') {
+                botInfo.classList.remove('active');
+            }
+        });
 
         // יצירת רשימת הבוטים בתפריט
         bots.forEach(bot => {
@@ -350,6 +363,7 @@
             `;
             botInfo.classList.add('active');
             closeSidebar();
+            history.pushState({page: 'bot'}, '', '');
         }
 
         menuBtn.addEventListener('click', () => {
@@ -370,6 +384,9 @@
             document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
             themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
+
+        // הוספת מצב התחלתי להיסטוריה
+        history.replaceState({page: 'welcome'}, '', '');
     </script>
 </body>
 </html>
